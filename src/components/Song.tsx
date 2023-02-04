@@ -1,10 +1,41 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 interface Props{
   name?: string
+  index:number
+  lyrics?:string
+  videoLink?:string
 }
-const Song: React.FC<Props> =({name}): JSX.Element=>{
+
+const Song: React.FC<Props> =({name, index, lyrics, videoLink}): JSX.Element=>{
+  const [isClick, setIsClick] = useState(false);
+  const contentEl = useRef<HTMLInputElement | null>(null);
+
+  const handleToggle = () => {
+    setIsClick(!isClick);
+  };
+
   return(
-    <h3>{name}</h3>
+    <li className={`para ${isClick ? "active" : ""}`}>
+      <button className="button" onClick={handleToggle}>
+        {index}. &nbsp; {name}
+        <span className="control">{isClick ? "—" : "+"} </span>
+      </button>
+      <div
+        ref={contentEl}
+        className="lyrics_wrapper"
+        style={
+          isClick
+            ? { height: contentEl?.current?.scrollHeight }
+            : { height: "0px" }
+        }
+      >
+
+        <div className="lyrics">
+          {videoLink && <a href={videoLink} target="_blank" rel="noreferrer">Video link<br /></a>}
+          {lyrics}
+        </div>
+      </div>
+    </li>
   )
 }
 

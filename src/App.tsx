@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './App.css';
 import SONGS_DATA from './data/data';
 
 import Search from './components/Search';
@@ -11,7 +12,7 @@ const App =():JSX.Element=> {
   const [query, setQuery] = useState('');
 
   return (
-    <div>
+    <div className='app'>
       <Search query={query} setQuery = {setQuery}/>
       <Songs data ={SONGS_DATA} query={query}/>
     </div>

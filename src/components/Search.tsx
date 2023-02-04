@@ -14,14 +14,12 @@ const Search =(props:InputProps)=>{
       }
 
     return(
-        <div>
-            <input
-            type='text'
-            value={query}
-            onChange = {inputHandleChange}
-            placeholder = "Search..."
-            />
-      </div>
+        <input
+        type='text'
+        value={query}
+        onChange = {inputHandleChange}
+        placeholder = "Search..."
+        />
     )
 }
 

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Item from "../data/dataTypes";
 import Song from "./Song";
 
@@ -16,7 +15,7 @@ import Song from "./Song";
 
 type UserProps={
   data?:Item[],
-  query:string
+  query:string,
 }
 
 const Songs = (props: UserProps) => {
@@ -26,6 +25,10 @@ const Songs = (props: UserProps) => {
           {data?.filter((item) => item?.name?.toLowerCase().includes(query.toLowerCase())).map((song, index) =>
                 <Song
                 name={song.name}
+                videoLink={song.videoLink}
+                lyrics={song.lyrics}
+                index={++index}
+                key={song.name}
                 />
             )}
         </div>

@@ -10,19 +10,24 @@ import Song from "./Song";
 // interface Props{
     //     data: UserType
     // }
-interface UserProps {
-    data: Item[],
+// interface UserProps {
+//     data?: Item[],
+// }
+
+type UserProps={
+  data?:Item[],
+  query:string
 }
 
-const Songs:React.FC<UserProps> = ({data}): JSX.Element => {
-    console.log(data)
-    
+const Songs = (props: UserProps) => {
+    const{data, query} =props
     return (
         <div className="songs">
-          {data && data.map((item)=>
-            <Song name={item.name} />
-            // <h3>{item.name}</h3>
-          )}
+          {data?.filter((item) => item?.name?.toLowerCase().includes(query.toLowerCase())).map((song, index) =>
+                <Song
+                name={song.name}
+                />
+            )}
         </div>
     )
 }

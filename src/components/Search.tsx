@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 
-export interface Props {
-    textChange?: string;
-    userSearchText?:string;
+type InputProps = {
+    query?: string;
+    inputHandleChange?: (event: React.ChangeEvent<HTMLInputElement>)=>void
 }
 
-const Search: React.FC<Props>=(props)=>{
-    const { textChange, userSearchText } = props;
+const Search =(props:InputProps)=>{
+    const { query, inputHandleChange } = props;
     return(
-        <input type="text" placeholder="Search by english name" value={userSearchText} onChange={textChange}/>
+        <div>
+            <input
+            type='text'
+            value={query}
+            onChange = {inputHandleChange}
+            placeholder = "Search..."
+            />
+      </div>
     )
 }
-// const Search = ({ textChange, userSearchText }) => {
-//     return (
-//         <input type="text" placeholder="Search by english name" value={userSearchText} onChange={textChange} />
-//     )
-// }
 
 export default Search

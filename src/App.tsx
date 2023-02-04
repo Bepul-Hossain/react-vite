@@ -3,45 +3,23 @@ import Item from './data/dataTypes';
 import SONGS_DATA from './data/data';
 
 import Songs from './components/Songs'
+import Search from './components/Search';
+import { Input } from './components/Input';
 
 
 const App =():JSX.Element=> {
+  // const [result, setResult] = useState<Item[] | undefined>();
 
   const [query, setQuery] = useState('');
-  const [result, setResult] = useState<Item[] | undefined>();
-
-  const inputHandler=(event: React.ChangeEvent<HTMLInputElement>)=>{
+  const inputHandleChange=(event: React.ChangeEvent<HTMLInputElement>)=>{
     setQuery(event.target.value);
+    console.log(query)
   }
 
-  const search=()=>{
-    const foundItems = SONGS_DATA.filter((item)=>
-      item?.name?.toLowerCase().includes(query.toLowerCase())
-    )
-    setResult(foundItems)
-  }
-  console.log(result)
   return (
     <div>
-      <div>
-        <input
-        value={query}
-        onChange = {inputHandler}
-        placeholder = "Search"
-        />
-        <button onClick={search}>Search</button>
-      </div>
-      
-      <Songs data ={SONGS_DATA}/>
-      <div>
-      {
-        result && result.length>0?(
-          result.map((item)=>(
-            <li key={item.name}>{item.name}</li>
-          ))
-        ):(<h2>No Item found</h2>)
-      }
-      </div>
+      <Search query={query} inputHandleChange = {inputHandleChange}/>
+      <Songs data ={SONGS_DATA} query={query}/>
     </div>
   )
 }

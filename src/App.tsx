@@ -1,47 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
-import SONGS from './data';
-import Search from './components/Search'
+import React, { useState } from 'react'
+import Item from './data/dataTypes';
+import SONGS_DATA from './data/data';
 
 
-function App() {
-  // const [count, setCount] = useState(0)
-  let songsSortByName = SONGS;
-  songsSortByName.sort(function (a, b) {
-    var x = a.name.toLowerCase();
-    var y = b.name.toLowerCase();
-    return x < y ? -1 : x > y ? 1 : 0;
-  });
 
-  const [userSearchText, setUserSearchText] = useState("");
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setUserSearchText(e.target.value);
+const App =():JSX.Element=> {
+  const [query, setQuery] = useState('');
+  const [result, setResult] = useState<Item[] | undefined>();
+
+  const inputHandler=(event: React.ChangeEvent<HTMLInputElement>)=>{
+    setQuery(event.target.value);
   }
-
+  const search=()=>{
+    const foundItems = SONGS_DATA.filter((item)=>
+      item?.name?.toLowerCase().includes(query.toLowerCase())
+    )
+    setResult(foundItems)
+  }
+  console.log(result)
   return (
-    <div className="App">
-      <Search textChange={handleChange} userSearchText={userSearchText}/>
+    <div>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <input
+      value={query}
+      onChange = {inputHandler}
+      placeholder = "Search"
+      />
+      <button onClick={search}>Search</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div>
+      {
+        result && result.length>0?(
+          result.map((item)=>(
+            <li key={item.name}>{item.name}</li>
+          ))
+        ):(<h2>No Item found</h2>)
+      }
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }

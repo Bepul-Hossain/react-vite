@@ -1,9 +1,5 @@
-export interface Song{
-    name?:string;
-    videoLink?:string;
-    lyrics?:string;
-}
-const SONGS = [
+import Item from "./dataTypes";
+const SONGS:Item[] = [
     {
         name: `Amake Amar Moto Thakte Dao Lyrics In Bengali:`,
         videoLink: `https://www.youtube.com/watch?v=Gy0kTWVZsDg`,

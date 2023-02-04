@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 
 type InputProps = {
     query?: string;
-    inputHandleChange?: (event: React.ChangeEvent<HTMLInputElement>)=>void
+    setQuery:React.Dispatch<React.SetStateAction<string>>
 }
 
 const Search =(props:InputProps)=>{
-    const { query, inputHandleChange } = props;
+    const { query,setQuery } = props;
+
+    const inputHandleChange=(event: React.ChangeEvent<HTMLInputElement>)=>{
+        setQuery(event.target.value);
+        console.log(query)
+      }
+
     return(
         <div>
             <input
